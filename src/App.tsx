@@ -54,7 +54,7 @@ function AuraApp() {
       </header>
 
       {/* Notification panel */}
-      {notifOpen && (
+      {notifOpen ? (
         <>
           <div className="fixed inset-0 z-30" onClick={() => setNotifOpen(false)} />
           <div
@@ -77,14 +77,14 @@ function AuraApp() {
             ))}
           </div>
         </>
-      )}
+      ) : null}
 
       {/* Page content */}
       <main className="flex-1 overflow-y-auto pb-20">
-        {page === 'dashboard' && <Dashboard />}
-        {page === 'schedule' && <Schedule />}
-        {page === 'clients' && <Clients />}
-        {page === 'analytics' && <Analytics />}
+        {page === 'dashboard' ? <Dashboard /> : null}
+        {page === 'schedule' ? <Schedule /> : null}
+        {page === 'clients' ? <Clients /> : null}
+        {page === 'analytics' ? <Analytics /> : null}
       </main>
 
       {/* Bottom navigation */}
@@ -102,9 +102,7 @@ function AuraApp() {
               >
                 <div className={`relative p-1.5 rounded-xl transition-all duration-200 ${active ? 'bg-[var(--gold-dim)]' : ''}`}>
                   <Icon name={item.icon} size={18} />
-                  {active && (
-                    <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-gold rounded-full" />
-                  )}
+                  {active ? <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-gold rounded-full" /> : null}
                 </div>
                 <span className={`text-[10px] font-sans ${active ? 'font-medium' : 'font-light'}`}>
                   {item.label}
