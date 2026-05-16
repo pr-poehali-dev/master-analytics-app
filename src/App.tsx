@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import Icon from '@/components/ui/icon';
 import Dashboard from '@/components/Dashboard';
 import Schedule from '@/components/Schedule';
@@ -128,10 +126,5 @@ function AuraApp() {
 }
 
 export default function App() {
-  return (
-    <TooltipProvider>
-      <Toaster />
-      <AuraApp />
-    </TooltipProvider>
-  );
+  return <AuraApp />;
 }
