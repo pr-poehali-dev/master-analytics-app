@@ -18,8 +18,6 @@ function AuraApp() {
   const [page, setPage] = useState<Page>('dashboard');
   const [notifOpen, setNotifOpen] = useState(false);
 
-  const currentNav = nav.find((n) => n.id === page)!;
-
   return (
     <div
       className="min-h-screen bg-background flex flex-col"
@@ -119,8 +117,6 @@ function AuraApp() {
         <div className="h-safe-area-bottom" style={{ height: 'env(safe-area-inset-bottom)' }} />
       </nav>
 
-      {/* Hidden - used for page title reference */}
-      <span className="sr-only">{currentNav.label}</span>
     </div>
   );
 }
