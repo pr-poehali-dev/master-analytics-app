@@ -18,103 +18,99 @@ const services = [
 const maxRevenue = Math.max(...monthlyData.map((d) => d.revenue));
 
 const insights = [
-  { icon: 'TrendingUp', label: 'Рост дохода', value: '+22% к прошлому месяцу', positive: true },
-  { icon: 'Star', label: 'Топ услуга', value: 'Маникюр + гель', positive: true },
-  { icon: 'Clock', label: 'Пиковое время', value: 'Пт–Сб, 12:00–17:00', positive: true },
-  { icon: 'UserCheck', label: 'Возврат клиентов', value: '78% повторных записей', positive: true },
+  { icon: 'TrendingUp', label: 'Рост дохода', value: '+22% к прошлому месяцу' },
+  { icon: 'Star', label: 'Топ услуга', value: 'Маникюр + гель' },
+  { icon: 'Clock', label: 'Пиковое время', value: 'Пт–Сб, 12:00–17:00' },
+  { icon: 'UserCheck', label: 'Возврат клиентов', value: '78% повторных' },
 ];
 
 export default function Analytics() {
   return (
-    <div className="p-6 space-y-6">
+    <div className="px-4 py-5 space-y-5">
       <div className="animate-fade-up">
-        <p className="text-muted-foreground text-xs font-sans tracking-widest uppercase">Аналитика</p>
-        <h1 className="font-display text-3xl font-light mt-0.5">Доход и статистика</h1>
+        <p className="text-muted-foreground text-xs font-sans tracking-widest uppercase">Статистика</p>
+        <h1 className="font-display text-3xl font-light mt-0.5">Аналитика</h1>
       </div>
 
       {/* KPI cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-up-delay-1">
+      <div className="grid grid-cols-2 gap-3 animate-fade-up-delay-1">
         {[
-          { label: 'Доход за май', value: '₽ 119 400', sub: 'на 22% больше апреля' },
-          { label: 'Клиентов в мае', value: '42', sub: 'новых: 8' },
-          { label: 'Записей в мае', value: '129', sub: 'загруженность 87%' },
-          { label: 'Средний чек', value: '₽ 2 940', sub: '+₽ 180 к апрелю' },
+          { label: 'Доход за май', value: '₽ 119 400', sub: '+22% к апрелю' },
+          { label: 'Клиентов', value: '42', sub: 'новых: 8' },
+          { label: 'Записей', value: '129', sub: 'загруженность 87%' },
+          { label: 'Средний чек', value: '₽ 2 940', sub: '+₽ 180' },
         ].map((kpi) => (
-          <div key={kpi.label} className="glass-card rounded-2xl p-5">
-            <p className="font-display text-2xl font-light text-gold">{kpi.value}</p>
-            <p className="font-sans font-medium text-sm text-foreground mt-1">{kpi.label}</p>
-            <p className="text-xs text-muted-foreground mt-0.5">{kpi.sub}</p>
+          <div key={kpi.label} className="glass-card rounded-2xl p-4">
+            <p className="font-display text-xl font-light text-gold">{kpi.value}</p>
+            <p className="font-sans font-medium text-xs text-foreground mt-1">{kpi.label}</p>
+            <p className="text-[10px] text-muted-foreground mt-0.5">{kpi.sub}</p>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Monthly chart */}
-        <div className="lg:col-span-2 glass-card rounded-2xl p-6 animate-fade-up-delay-2">
-          <div className="flex items-center justify-between mb-5">
-            <div>
-              <h2 className="font-display text-xl font-light">Динамика дохода</h2>
-              <p className="text-xs text-muted-foreground font-sans mt-0.5">Январь — Май 2026</p>
-            </div>
-            <div className="flex items-center gap-4 text-xs font-sans text-muted-foreground">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                Доход
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-violet-400" />
-                Клиенты
-              </div>
-            </div>
+      {/* Revenue chart */}
+      <div className="glass-card rounded-2xl p-4 animate-fade-up-delay-2">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <p className="font-sans font-medium text-sm">Динамика дохода</p>
+            <p className="text-xs text-muted-foreground">Янв — Май 2026</p>
           </div>
-
-          <div className="flex items-end gap-3 h-40">
-            {monthlyData.map((d, i) => (
-              <div key={d.month} className="flex-1 flex flex-col items-center gap-1">
-                <div className="w-full flex gap-1 items-end" style={{ height: '120px' }}>
-                  <div
-                    className="flex-1 rounded-t-lg bg-[var(--gold-dim)] hover:bg-gold/40 transition-colors cursor-pointer relative group"
-                    style={{ height: `${(d.revenue / maxRevenue) * 100}%` }}
-                  >
-                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-background border border-border rounded-lg px-2 py-1 text-xs font-sans whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                      ₽ {d.revenue.toLocaleString()}
-                    </div>
-                  </div>
-                  <div
-                    className="flex-1 rounded-t-lg bg-violet-500/20 hover:bg-violet-500/30 transition-colors"
-                    style={{ height: `${(d.clients / 42) * 100}%` }}
-                  />
-                </div>
-                <span className={`text-xs font-sans ${i === monthlyData.length - 1 ? 'text-gold font-medium' : 'text-muted-foreground'}`}>
-                  {d.month}
-                </span>
+          <span className="text-xs font-sans text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-full">+45%</span>
+        </div>
+        <div className="flex items-end gap-2 h-24">
+          {monthlyData.map((d, i) => (
+            <div key={d.month} className="flex-1 flex flex-col items-center gap-1">
+              <div className="w-full flex gap-0.5 items-end" style={{ height: '72px' }}>
+                <div
+                  className={`flex-1 rounded-t-md transition-all duration-700 ${i === monthlyData.length - 1 ? 'bg-gold' : 'bg-[var(--gold-dim)]'}`}
+                  style={{ height: `${(d.revenue / maxRevenue) * 100}%` }}
+                />
+                <div
+                  className="flex-1 rounded-t-md bg-violet-500/20"
+                  style={{ height: `${(d.clients / 42) * 100}%` }}
+                />
               </div>
-            ))}
+              <span className={`text-[9px] font-sans ${i === monthlyData.length - 1 ? 'text-gold font-medium' : 'text-muted-foreground'}`}>
+                {d.month}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-4 mt-3 pt-3 border-t border-border/50">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-gold" />
+            <span className="text-[10px] text-muted-foreground font-sans">Доход</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-violet-400" />
+            <span className="text-[10px] text-muted-foreground font-sans">Клиенты</span>
           </div>
         </div>
+      </div>
 
-        {/* Insights */}
-        <div className="glass-card rounded-2xl p-6 animate-fade-up-delay-3 space-y-4">
-          <h2 className="font-display text-xl font-light">Инсайты</h2>
+      {/* Insights */}
+      <div className="glass-card rounded-2xl p-4 animate-fade-up-delay-3">
+        <h2 className="font-display text-xl font-light mb-3">Инсайты</h2>
+        <div className="space-y-1">
           {insights.map((ins) => (
-            <div key={ins.label} className="flex items-start gap-3 p-3 rounded-xl hover:bg-[var(--surface-hover)] transition-colors">
-              <div className="w-8 h-8 rounded-lg bg-[var(--gold-dim)] flex items-center justify-center shrink-0 mt-0.5">
-                <Icon name={ins.icon} size={14} className="text-gold" />
+            <div key={ins.label} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-colors">
+              <div className="w-8 h-8 rounded-lg bg-[var(--gold-dim)] flex items-center justify-center shrink-0">
+                <Icon name={ins.icon} size={13} className="text-gold" />
               </div>
               <div>
-                <p className="text-xs text-muted-foreground font-sans">{ins.label}</p>
-                <p className="font-sans text-sm font-medium text-foreground mt-0.5">{ins.value}</p>
+                <p className="text-[10px] text-muted-foreground font-sans">{ins.label}</p>
+                <p className="font-sans text-sm font-medium">{ins.value}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Services breakdown */}
-      <div className="glass-card rounded-2xl p-6 animate-fade-up-delay-4">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="font-display text-xl font-light">Популярность услуг</h2>
-          <button className="flex items-center gap-2 text-xs font-sans text-gold border border-[var(--glass-border)] px-3 py-1.5 rounded-full hover:border-gold/50 transition-all">
+      {/* Services */}
+      <div className="glass-card rounded-2xl p-4 animate-fade-up-delay-4">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-display text-xl font-light">Услуги</h2>
+          <button className="flex items-center gap-1.5 text-xs font-sans text-gold">
             <Icon name="Download" size={12} />
             Экспорт
           </button>
@@ -122,20 +118,20 @@ export default function Analytics() {
         <div className="space-y-4">
           {services.map((s) => (
             <div key={s.name}>
-              <div className="flex items-center justify-between mb-1.5">
-                <p className="font-sans text-sm font-medium">{s.name}</p>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground font-sans">
-                  <span>{s.count} записей</span>
-                  <span className="text-gold font-medium">₽ {s.revenue.toLocaleString()}</span>
-                </div>
+              <div className="flex items-center justify-between mb-1">
+                <p className="font-sans text-sm">{s.name}</p>
+                <span className="text-xs font-sans text-gold font-medium">₽ {(s.revenue / 1000).toFixed(0)}K</span>
               </div>
               <div className="h-1.5 bg-[var(--surface)] rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-gold to-gold-light rounded-full transition-all duration-700"
+                  className="h-full bg-gradient-to-r from-gold to-gold-light rounded-full"
                   style={{ width: `${s.percent}%` }}
                 />
               </div>
-              <p className="text-xs text-muted-foreground font-sans mt-0.5">{s.percent}% от выручки</p>
+              <div className="flex justify-between mt-0.5">
+                <span className="text-[10px] text-muted-foreground">{s.count} записей</span>
+                <span className="text-[10px] text-muted-foreground">{s.percent}%</span>
+              </div>
             </div>
           ))}
         </div>
